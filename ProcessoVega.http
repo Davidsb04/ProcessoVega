@@ -1,0 +1,6 @@
+@ProcessoVega_HostAddress = http://localhost:5292
+
+GET {{ProcessoVega_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

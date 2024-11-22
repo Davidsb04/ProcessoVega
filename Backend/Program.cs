@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using ProcessoVega.Data;
+using ProcessoVega.Services;
 
 namespace ProcessoVega
 {
@@ -20,6 +21,8 @@ namespace ProcessoVega
             var mySqlConnection = builder.Configuration.GetConnectionString("DefaultConnection");
 
             builder.Services.AddDbContext<Context>(options => options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
+
+            builder.Services.AddScoped<IMaterialService, MaterialService>();
 
             var app = builder.Build();
 

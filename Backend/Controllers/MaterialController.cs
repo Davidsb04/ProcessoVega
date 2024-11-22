@@ -23,8 +23,8 @@ namespace ProcessoVega.Controllers
             {
                 var materials = await _materialService.GetAllMaterials();
 
-                if (materials == null)
-                    return NotFound("Lista vazia.");
+                if (!materials.Any())
+                    return NotFound("Empty List.");
 
                 return Ok(materials);
 

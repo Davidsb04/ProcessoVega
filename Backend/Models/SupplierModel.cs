@@ -1,4 +1,6 @@
-﻿namespace ProcessoVega.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace ProcessoVega.Models
 {
     public class SupplierModel
     {
@@ -12,7 +14,7 @@
 
         public void GenerateQRCode()
         {
-            QRCode = $"%{CNPJ}% / %{CEP}% - %{CreatedAt}%";
+            QRCode = $"%{CNPJ}% - %{CEP}% / CAD.%{CreatedAt}%";
         }
     }
 }

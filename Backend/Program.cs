@@ -23,6 +23,7 @@ namespace ProcessoVega
             builder.Services.AddDbContext<Context>(options => options.UseMySql(mySqlConnection, ServerVersion.AutoDetect(mySqlConnection)));
 
             builder.Services.AddScoped<IMaterialService, MaterialService>();
+            builder.Services.AddScoped<ISupplierService, SupplierService>();
 
             var app = builder.Build();
 

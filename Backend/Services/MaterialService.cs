@@ -7,29 +7,46 @@ namespace ProcessoVega.Services
     public class MaterialService : IMaterialService
     {
         private readonly Context _context;
+        private readonly ISupplierService _supplierService;
 
-        public MaterialService(Context context)
+        public MaterialService(Context context, ISupplierService supplierService)
         {
             _context = context;
+            _supplierService = supplierService;
         }       
 
         public async Task<IEnumerable<MaterialModel>> MaterialsToList()
         {
-            return await _context.Materials.ToListAsync();
+            List<MaterialModel> materials = await _context.Materials.ToListAsync();
+
+            foreach (var material in materials)
+            {
+                var supplier = await _supplierService.GetSupplierById(material.SupplierId);
+                material.Supplier = supplier;
+            }
+
+            return materials;
         }
 
-        public async Task<bool> SupplierExist(int supplierId)
+        public async Task<MaterialModel?> GetMaterialById(int materialId)
         {
-            if (await _context.Suppliers.AnyAsync(x => x.Id == supplierId))
-                return true;
+            var material = await _context.Materials
+                .Include(m => m.Supplier)
+                .SingleOrDefaultAsync(x => x.Id == materialId);
 
-            return false;
+            if (material == null)
+                return null;
+
+            return material;
         }
 
         public async Task<MaterialModel?> CreateMaterial(MaterialModel material)
         {
-            if(await SupplierExist(material.SupplierId))
+            var supplier = await _supplierService.GetSupplierById(material.SupplierId);
+
+            if(supplier != null)
             {
+                material.Supplier = supplier;
                 material.CreatedAt = DateTime.Today;
                 material.UpdatedAt = null;
 
@@ -44,7 +61,9 @@ namespace ProcessoVega.Services
 
         public async Task<String> UpdateMaterial(MaterialModel material)
         {
-            if (!await SupplierExist(material.SupplierId))
+            var supplier = await _supplierService.GetSupplierById(material.SupplierId);
+
+            if (supplier == null)
                 return "SupplierNotFound";
 
             var existingMaterial = await _context.Materials.FirstOrDefaultAsync(x => x.Id == material.Id);
@@ -53,6 +72,7 @@ namespace ProcessoVega.Services
                 return "MaterialNotFound";
 
             existingMaterial.SupplierId = material.SupplierId;
+            existingMaterial.Supplier = supplier;
             existingMaterial.Code = material.Code;
             existingMaterial.Name = material.Name;
             existingMaterial.Description = material.Description;

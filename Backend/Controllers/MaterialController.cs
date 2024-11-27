@@ -31,6 +31,24 @@ namespace ProcessoVega.Controllers
             }
         }
 
+        [HttpGet("GetMaterial")]
+        public async Task<ActionResult> GetMaterial(int id)
+        {
+            try
+            {
+                var material = await _materialService.GetMaterialById(id);
+
+                if (material == null)
+                    return NotFound("This material is not registered in the system.");
+
+                return Ok(material);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Server Error: " + ex.Message);
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult> CreateMaterial(MaterialModel material)
         {

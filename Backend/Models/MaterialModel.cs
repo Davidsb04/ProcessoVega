@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public int SupplierId { get; set; }
-        public required SupplierModel Supplier { get; set; }
+        public SupplierModel? Supplier { get; set; }
         public required string Code { get; set; }
         public required string Name { get; set; }
         public required string Description { get; set; }

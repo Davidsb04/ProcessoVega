@@ -28,7 +28,25 @@ namespace ProcessoVega.Controllers
             {
                 return StatusCode(500, "Server Error: " + ex.Message);
             }
-        }     
+        }
+
+        [HttpGet("GetSupplier")]
+        public async Task<IActionResult> GetSupplier(int id)
+        {
+            try
+            {
+                var suppliers = await _supplierService.GetSupplierById(id);
+
+                if (suppliers == null) 
+                    return NotFound("This supplier is not registered in the system.");
+
+                return Ok(suppliers);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Server Error: " + ex.Message);
+            }
+        }
 
         [HttpPost]
         public async Task<ActionResult> PostSupplier(SupplierModel supplier)

@@ -1,5 +1,4 @@
 import ApiService from './services/ApiService.js';
-import { showError } from './services/utils.js';
 
 class NewSupplierController {
     constructor() {
@@ -38,6 +37,17 @@ class NewSupplierController {
             value = value.replace(/^(\d{5})(\d)/, '$1-$2');
             $(this).val(value);
         });
+
+        $('#cep').on('blur', () => {
+            const cep = $('#cep').val().replace(/\D/g, '');
+            if (cep.length !== 8) {
+                $('#cep').addClass('is-invalid').removeClass('is-valid');
+                $('#cep').after('<div class="invalid-feedback">CEP deve ter 8 dígitos</div>');
+            } else {
+                $('#cep').addClass('is-valid').removeClass('is-invalid');
+                $('.invalid-feedback').remove();
+            }
+        });
     }
 
     async handleSubmit() {
@@ -51,11 +61,22 @@ class NewSupplierController {
         };
 
         try {
-            await ApiService.createSupplier(formData);
+            const response = await ApiService.createSupplier(formData);
+            console.log('Sucesso: ', response);
             window.location.href = 'supplier.html';
         } catch (error) {
-            showError('Erro ao salvar fornecedor');
-            console.error(error);
+            const errorMessage = error.responseText;
+
+            $('.alert-container').html(`
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    ${errorMessage}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `);
+
+            setTimeout(() => {
+                $('.alert').fadeOut('slow');
+            }, 3000);
         }
     }
 }

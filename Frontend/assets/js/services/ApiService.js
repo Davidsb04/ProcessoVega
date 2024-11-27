@@ -2,10 +2,18 @@ const ApiService = {
     baseUrl: 'http://localhost:5292/api/',
 
 
-    getMaterials: async () => {
-        return await $.ajax({
+    getMaterials: function () {
+        return $.ajax({
             url: `${this.baseUrl}Material`,
             method: 'GET',
+        })
+    },
+
+    getMaterialById: function (id) {
+        return $.ajax({
+            url: `${this.baseUrl}Material/GetMaterial?id=${id}`,
+            method: 'GET',
+            contentType: 'application/json'
         })
     },
 
@@ -31,6 +39,14 @@ const ApiService = {
         return $.ajax({
             url: `${this.baseUrl}Supplier`,
             method: 'GET',
+        })
+    },
+
+    getSupplierById: function (id) {
+        return $.ajax({
+            url: `${this.baseUrl}Supplier/${id}`,
+            method: 'GET',
+            contentType: 'application/json',
         })
     },
 

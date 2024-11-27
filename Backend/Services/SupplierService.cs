@@ -18,6 +18,16 @@ namespace ProcessoVega.Services
             return await _context.Suppliers.ToListAsync();
         }
 
+        public async Task<SupplierModel?> GetSupplierById(int supplierId)
+        {
+            var supplier = await _context.Suppliers.SingleOrDefaultAsync(x => x.Id == supplierId);
+
+            if (supplier == null)
+                return null;
+
+            return supplier;
+        }
+
         public async Task<bool> VerifyUniqueCNPJ(string Cnpj)
         {
             var supplier = await _context.Suppliers.FirstOrDefaultAsync(x => x.CNPJ == Cnpj);

@@ -1,171 +1,70 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Material</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 
 <body>
-    <!-- Main Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">Sistema de Cadastro</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Materiais</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="supplier.html">Fornecedores</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Material Form -->
     <div class="container">
-        <h2 class="mb-4">Editar Material</h2>
+        <div class="alert-container mt-3"></div>
+
+        <h2>Editar Material</h2>
+
         <form id="materialForm">
-            <input type="hidden" id="materialId">
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label class="form-label">Nome do Material</label>
-                    <input type="text" class="form-control" id="materialName" required>
+                    <input type="text" id="materialName" class="form-control" required>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Código</label>
-                    <input type="text" class="form-control" id="materialCode" required>
+                    <input type="text" id="materialCode" class="form-control" required>
                 </div>
             </div>
+
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label class="form-label">Fornecedor</label>
-                    <select class="form-select" id="supplierSelect" required>
-                        <option value="">Selecione um fornecedor</option>
+                    <select id="supplierSelect" class="form-select" required>
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label">Código Fiscal</label>
-                    <input type="text" class="form-control" id="fiscalCode" required>
+                    <label class="form-label">Tipo</label>
+                    <input type="text" id="materialSpecie" class="form-control" required>
                 </div>
             </div>
+
             <div class="row mb-3">
-                <div class="col-md-6">
-                    <label class="form-label">Espécie</label>
-                    <input type="text" class="form-control" id="materialType" required>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Atualizado por</label>
-                    <input type="text" class="form-control" id="updatedBy" required>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-12">
+                <div class="col-md-12">
                     <label class="form-label">Descrição</label>
-                    <textarea class="form-control" id="description" rows="3"></textarea>
+                    <textarea id="description" class="form-control" rows="3"></textarea>
                 </div>
             </div>
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-primary">Salvar</button>
-                <a href="index.html" class="btn btn-secondary">Cancelar</a>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label">Código Fiscal</label>
+                    <input type="text" id="fiscalCode" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Criado por</label>
+                    <input type="text" id="createdBy" class="form-control" required>
+                </div>
             </div>
+
+            <button type="submit" class="btn btn-primary">Atualizar Material</button>
+            <a href="index.html" class="btn btn-secondary">Cancelar</a>
         </form>
     </div>
 
-    <!-- Adicione antes do fechamento do body -->
-    <script>
-        // Simulação de dados (futuramente virá da API)
-        const mockData = {
-            '001': {
-                id: '001',
-                name: 'Parafuso 5mm',
-                code: '1000',
-                supplier: 'Fornecedor A',
-                supplierId: '1',
-                fiscalCode: '1234567890',
-                type: 'Parafuso',
-                description: 'Parafuso de aço inox com rosca de 5mm',
-                createdAt: '14/09/2013',
-                createdBy: 'Usuário A'
-            }
-        };
-
-        const mockSuppliers = [
-            { id: '1', name: 'Fornecedor A' },
-            { id: '2', name: 'Fornecedor B' }
-        ];
-
-        // Função para carregar os fornecedores no select
-        function loadSuppliers() {
-            const select = document.getElementById('supplierSelect');
-            mockSuppliers.forEach(supplier => {
-                const option = document.createElement('option');
-                option.value = supplier.id;
-                option.textContent = supplier.name;
-                select.appendChild(option);
-            });
-        }
-
-        // Função para carregar os dados do material
-        function loadMaterialData() {
-            // Pega o ID da URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const materialId = urlParams.get('id');
-
-            if (materialId && mockData[materialId]) {
-                const material = mockData[materialId];
-
-                // Preenche os campos do formulário
-                document.getElementById('materialId').value = material.id;
-                document.getElementById('materialName').value = material.name;
-                document.getElementById('materialCode').value = material.code;
-                document.getElementById('supplierSelect').value = material.supplierId;
-                document.getElementById('fiscalCode').value = material.fiscalCode;
-                document.getElementById('materialType').value = material.type;
-                document.getElementById('description').value = material.description;
-            }
-        }
-
-        // Inicializa a página
-        document.addEventListener('DOMContentLoaded', () => {
-            loadSuppliers();
-            loadMaterialData();
-        });
-
-        // Manipula o envio do formulário
-        document.getElementById('materialForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            // Aqui você implementará a chamada para sua API
-            const formData = {
-                id: document.getElementById('materialId').value,
-                name: document.getElementById('materialName').value,
-                code: document.getElementById('materialCode').value,
-                supplierId: document.getElementById('supplierSelect').value,
-                fiscalCode: document.getElementById('fiscalCode').value,
-                type: document.getElementById('materialType').value,
-                description: document.getElementById('description').value,
-                updatedBy: document.getElementById('updatedBy').value
-            };
-            console.log('Dados a serem enviados:', formData);
-            // Redireciona após salvar
-            window.location.href = 'index.html';
-        });
-    </script>
-
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="../assets/js/editMaterial.js"></script>
 </body>
 
 </html>

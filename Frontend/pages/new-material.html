@@ -5,16 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Novo Material</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 
 <body>
-    <!-- Main Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
             <a class="navbar-brand" href="index.html">Sistema de Cadastro</a>
@@ -34,48 +30,45 @@
         </div>
     </nav>
 
-    <!-- Material Form -->
     <div class="container">
+        <div class="alert-container mt-3"></div>
         <h2 class="mb-4">Novo Material</h2>
         <form id="materialForm">
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label class="form-label">Nome do Material</label>
-                    <input type="text" class="form-control" required>
+                    <input type="text" class="form-control" id="materialName" required>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Código</label>
-                    <input type="text" class="form-control" required>
+                    <input type="text" class="form-control" id="materialCode" required>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label class="form-label">Fornecedor</label>
-                    <select class="form-select" required>
-                        <option value="">Selecione um fornecedor</option>
-                        <option value="1">Fornecedor A</option>
-                        <option value="2">Fornecedor B</option>
+                    <select id="supplierSelect" class="form-select" required>
                     </select>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Código Fiscal</label>
-                    <input type="text" class="form-control" required>
+                    <input type="text" class="form-control" id="fiscalCode" required>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label class="form-label">Espécie</label>
-                    <input type="text" class="form-control" required>
+                    <input type="text" class="form-control" id="specie" required>
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Cadastrado por</label>
-                    <input type="text" class="form-control" required>
+                    <input type="text" class="form-control" id="createdBy" required>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col-12">
                     <label class="form-label">Descrição</label>
-                    <textarea class="form-control" rows="3"></textarea>
+                    <textarea class="form-control" rows="3" id="description"></textarea>
                 </div>
             </div>
             <div class="d-flex gap-2">
@@ -85,8 +78,8 @@
         </form>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="../assets/js/newMaterial.js"></script>
 </body>
 
 </html>

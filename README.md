@@ -23,11 +23,10 @@ Um sistema web para gerenciamento de materiais e seus respectivos fornecedores, 
 ### Backend
 - ASP.NET Core
 - Entity Framework Core
-- SQL Server
+- MySQL
 
 ### Frontend
 - HTML5
-- CSS3
 - JavaScript
 - jQuery
 - Bootstrap 5

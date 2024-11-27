@@ -22,10 +22,6 @@ namespace ProcessoVega.Controllers
             try
             {
                 var materials = await _materialService.MaterialsToList();
-
-                if (!materials.Any())
-                    return NotFound("Empty List.");
-
                 return Ok(materials);
 
             }

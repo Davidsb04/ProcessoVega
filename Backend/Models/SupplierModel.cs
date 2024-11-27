@@ -8,7 +8,7 @@ namespace ProcessoVega.Models
         public required string Name { get; set; }
         public required string CNPJ { get; set; }
         public DateTime CreatedAt { get; set; }
-        public required string Adress { get; set; }
+        public required string Address { get; set; }
         public int CEP { get; set; }
         public required string QRCode { get; set; }
 

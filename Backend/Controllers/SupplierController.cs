@@ -22,10 +22,6 @@ namespace ProcessoVega.Controllers
             try
             {
                 var suppliers = await _supplierService.SuppliersToList();
-
-                if (!suppliers.Any())
-                    return NotFound("Empty List.");
-
                 return Ok(suppliers);
             }
             catch (Exception ex)
